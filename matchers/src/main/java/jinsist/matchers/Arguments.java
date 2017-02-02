@@ -15,6 +15,7 @@ public class Arguments {
             return false;
         else
             for (int i = 0; i < length; i++) {
+                @SuppressWarnings("rawtypes")
                 ArgumentMatcher matcher = argumentMatchers.get(i);
                 @SuppressWarnings("unchecked")
                 boolean matches = matcher.matches(arguments[i]);
