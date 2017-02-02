@@ -6,9 +6,9 @@ import jinsist.matchers.EqualsMatcher;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import static java.util.Arrays.stream;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
@@ -23,7 +23,7 @@ public class TestFactories {
     }
 
     protected Arguments argumentsOf(Object... values) {
-        return new Arguments(Arrays.stream(values).map(EqualsMatcher::new).collect(toList()));
+        return new Arguments(stream(values).map(value -> new EqualsMatcher<>(value)).collect(toList()));
     }
 
     protected <MockType, ReturnType> Stub<MockType, ReturnType> stub(
