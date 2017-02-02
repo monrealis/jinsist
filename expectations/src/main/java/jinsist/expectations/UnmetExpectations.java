@@ -1,6 +1,8 @@
 package jinsist.expectations;
 
 public class UnmetExpectations extends RuntimeException {
+    private static final long serialVersionUID = 1L;
+
     UnmetExpectations() {
     }
 
