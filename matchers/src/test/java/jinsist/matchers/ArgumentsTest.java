@@ -21,10 +21,10 @@ public class ArgumentsTest {
 
     @Test
     public void matchesListOfArguments() {
-        List<ArgumentMatcher<?>> arguments = Arrays.asList(
-                new EqualsMatcher<>(intValue),
-                new EqualsMatcher<>(stringValue),
-                new EqualsMatcher<>(nullValue)
+        List<ArgumentMatcher> arguments = Arrays.asList(
+                new EqualsMatcher(intValue),
+                new EqualsMatcher(stringValue),
+                new EqualsMatcher(nullValue)
         );
 
         assertTrue(new Arguments(arguments).matches(1, stringValue, nullValue));
@@ -32,10 +32,10 @@ public class ArgumentsTest {
 
     @Test
     public void failsWrongOrderArgumentsMatch() {
-        List<ArgumentMatcher<?>> arguments = Arrays.asList(
-                new EqualsMatcher<>(intValue),
-                new EqualsMatcher<>(stringValue),
-                new EqualsMatcher<>(nullValue)
+        List<ArgumentMatcher> arguments = Arrays.asList(
+                new EqualsMatcher(intValue),
+                new EqualsMatcher(stringValue),
+                new EqualsMatcher(nullValue)
         );
 
         assertFalse(new Arguments(arguments).matches(1, nullValue, stringValue));

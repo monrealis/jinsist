@@ -1,5 +1,5 @@
 package jinsist.matchers;
 
-public interface ArgumentMatcher<A> {
-    boolean matches(A argument);
+public interface ArgumentMatcher {
+    boolean matches(Object argument);
 }

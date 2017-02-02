@@ -1,14 +1,14 @@
 package jinsist.matchers;
 
-public class EqualsMatcher<T> implements ArgumentMatcher<T> {
-    private T value;
+public class EqualsMatcher implements ArgumentMatcher {
+    private Object value;
 
-    public EqualsMatcher(T value) {
+    public EqualsMatcher(Object value) {
         this.value = value;
     }
 
     @Override
-    public boolean matches(T argument) {
+    public boolean matches(Object argument) {
         boolean isValueNull = value == null;
         boolean isArgumentNull = argument == null;
 
@@ -25,7 +25,7 @@ public class EqualsMatcher<T> implements ArgumentMatcher<T> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EqualsMatcher<?> that = (EqualsMatcher<?>) o;
+        EqualsMatcher that = (EqualsMatcher) o;
 
         return value != null ? value.equals(that.value) : that.value == null;
     }

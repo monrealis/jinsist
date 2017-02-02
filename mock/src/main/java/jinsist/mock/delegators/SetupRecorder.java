@@ -46,7 +46,7 @@ public class SetupRecorder<ReturnType, MockType> implements Delegator<MockType> 
 
     private Arguments makeArguments(Object[] args) {
         return new Arguments(
-                stream(args).map(arg -> new EqualsMatcher<>(arg)).collect(toList())
+                stream(args).map(EqualsMatcher::new).collect(toList())
         );
     }
 
