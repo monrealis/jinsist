@@ -1,6 +1,8 @@
 package jinsist.expectations;
 
 public class UnexpectedInvocation extends RuntimeException {
+    private static final long serialVersionUID = 1L;
+
     UnexpectedInvocation(Invocation invocation) {
         super("Nothing expected, but was " + invocation);
     }
