@@ -23,7 +23,7 @@ public class TestFactories {
     }
 
     protected Arguments argumentsOf(Object... values) {
-        return new Arguments(stream(values).map(value -> new EqualsMatcher<>(value)).collect(toList()));
+        return new Arguments(stream(values).map(EqualsMatcher::new).collect(toList()));
     }
 
     protected <MockType, ReturnType> Stub<MockType, ReturnType> stub(
