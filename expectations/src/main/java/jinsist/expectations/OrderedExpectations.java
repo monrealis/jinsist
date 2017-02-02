@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderedExpectations implements Expectations {
-    private List<Expectation> expectations = new ArrayList<>();
+    private List<Expectation<?, ?>> expectations = new ArrayList<>();
     private boolean wasUnexpectedInvocation = false;
 
     @Override
@@ -33,7 +33,7 @@ public class OrderedExpectations implements Expectations {
         if (expectations.isEmpty()) {
             throw new UnexpectedInvocation(invocation);
         }
-        Expectation expectation = expectations.remove(0);
+        Expectation<?, ?> expectation = expectations.remove(0);
 
         verifyExpectationMatchesInvocation(expectation, invocation);
 
@@ -41,7 +41,7 @@ public class OrderedExpectations implements Expectations {
     }
 
     private <MockType> void verifyExpectationMatchesInvocation(
-            Expectation expectation,
+            Expectation<?, ?> expectation,
             Invocation<MockType> invocation
     ) {
         if (!expectation.isFor(invocation)) {

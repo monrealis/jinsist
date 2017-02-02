@@ -13,13 +13,13 @@ public class Expectation<MockType, ReturnType> {
         return result;
     }
 
-    boolean isFor(Invocation invocation) {
+    boolean isFor(Invocation<?> invocation) {
         return this.expectedInvocation.getInstance().equals(invocation.getInstance())
                 && this.expectedInvocation.getMethod().equals(invocation.getMethod())
                 && this.expectedInvocation.getArguments().matches(invocation.getArguments());
     }
 
-    ExpectedInvocation getExpectedInvocation() {
+    ExpectedInvocation<MockType> getExpectedInvocation() {
         return expectedInvocation;
     }
 
@@ -28,7 +28,7 @@ public class Expectation<MockType, ReturnType> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Expectation that = (Expectation) o;
+        Expectation<?, ?> that = (Expectation<?, ?>) o;
 
         return expectedInvocation.equals(that.expectedInvocation)
                 && (result != null ? result.equals(that.result) : that.result == null);
