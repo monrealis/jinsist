@@ -7,9 +7,9 @@ import jinsist.mock.SetupResult;
 import jinsist.proxy.Delegator;
 
 import java.lang.reflect.Method;
-import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toList;
 
 public class SetupRecorder<ReturnType, MockType> implements Delegator<MockType> {
 
@@ -46,7 +46,7 @@ public class SetupRecorder<ReturnType, MockType> implements Delegator<MockType> 
 
     private Arguments makeArguments(Object[] args) {
         return new Arguments(
-                stream(args).map(EqualsMatcher::new).collect(Collectors.toList())
+                stream(args).map(arg -> new EqualsMatcher<>(arg)).collect(toList())
         );
     }
 
