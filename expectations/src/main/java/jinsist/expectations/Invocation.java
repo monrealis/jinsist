@@ -44,7 +44,7 @@ public class Invocation<MockType> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Invocation that = (Invocation) o;
+        Invocation<?> that = (Invocation<?>) o;
 
         return instance.equals(that.instance) && method.equals(that.method) && Arrays.equals(arguments, that.arguments);
     }

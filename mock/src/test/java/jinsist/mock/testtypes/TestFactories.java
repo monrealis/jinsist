@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toList;
 
 public class TestFactories {
 
-    protected List<Stub> registry = new ArrayList<>();
+    protected List<Stub<?, ?>> registry = new ArrayList<>();
     protected Method firstMethod = Collaborator.class.getMethod("firstMethod", String.class);
     protected Method voidMethod = Collaborator.class.getMethod("voidMethod");
     protected String input = "value";
