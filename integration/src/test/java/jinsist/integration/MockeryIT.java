@@ -6,17 +6,15 @@ import jinsist.integration.testtypes.Collaborator;
 import org.junit.Test;
 
 public class MockeryIT {
+    private Mockery mockery = new Mockery();
+    
     @Test
     public void verifiesEmptyMockery() {
-        Mockery mockery = new Mockery();
-
         mockery.verify();
     }
 
     @Test
     public void verifiesMockeryWithoutExpectations() {
-        Mockery mockery = new Mockery();
-
         mockery.mock(Collaborator.class);
 
         mockery.verify();
@@ -24,8 +22,6 @@ public class MockeryIT {
 
     @Test(expected = UnmetExpectations.class)
     public void failsVerificationOnUnmetExpectations() {
-        Mockery mockery = new Mockery();
-
         Collaborator collaborator = mockery.mock(Collaborator.class);
         mockery.expect(collaborator).query(mock -> mock.firstMethod("some input")).returns("some output");
 
@@ -34,8 +30,6 @@ public class MockeryIT {
 
     @Test
     public void passesVerificationIfExpectationsAreMet() {
-        Mockery mockery = new Mockery();
-
         Collaborator collaborator = mockery.mock(Collaborator.class);
 
         mockery.expect(collaborator).query(mock -> mock.firstMethod("some input")).returns("some output");
