@@ -2,10 +2,8 @@ package jinsist;
 
 import static org.junit.Assert.assertNotSame;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore("not implemented")
 public class MockeryTest {
     private Mockery mockery = new Mockery();
 
@@ -22,7 +20,7 @@ public class MockeryTest {
         Collaborator notMock = clone(mock);
         assertNotSame(mock, notMock);
 
-        mockery.expect(mock);
+        mockery.expect(notMock);
     }
 
     private Collaborator clone(Collaborator collaborator) {
@@ -36,5 +34,4 @@ public class MockeryTest {
     public static class Collaborator {
 
     }
-
 }
