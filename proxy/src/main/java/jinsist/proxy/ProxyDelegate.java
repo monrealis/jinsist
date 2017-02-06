@@ -16,7 +16,7 @@ public class ProxyDelegate<T> {
     }
 
     @RuntimeType
-    public Object intercept(@AllArguments Object[] allArguments, @Origin Method method, @This T instance)
+    public Object intercept(@This T instance, @Origin Method method, @AllArguments Object[] allArguments)
             throws InvocationTargetException, IllegalAccessException {
         return delegator.handle(instance, method, allArguments);
     }
