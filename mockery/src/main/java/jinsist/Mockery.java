@@ -1,7 +1,5 @@
 package jinsist;
 
-import static java.util.Objects.requireNonNull;
-
 import jinsist.expectations.Expectations;
 import jinsist.expectations.OrderedExpectations;
 import jinsist.expectations.ReportExpectations;
@@ -26,13 +24,20 @@ public class Mockery {
     }
 
     public <M> Mock<M> expect(M mockInstance) {
-        Mock<M> m = findMock(mockInstance);
-        requireNonNull(m);
+        ensureMockExists(mockInstance);
+        Mock<M> m = getMock(mockInstance);
         return m;
     }
 
+    private <M> void ensureMockExists(M mockInstance) {
+        if (mocks.containsKey(mockInstance))
+            return;
+        String error = String.format("Given object is not a mock known to this mockery", mockInstance);
+        throw new IllegalArgumentException(error);
+    }
+
     @SuppressWarnings("unchecked")
-    private <M> Mock<M> findMock(M mockInstance) {
+    private <M> Mock<M> getMock(M mockInstance) {
         return (Mock<M>) mocks.get(mockInstance);
     }
 }
