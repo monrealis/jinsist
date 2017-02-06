@@ -7,20 +7,12 @@ import jinsist.proxy.Delegator;
 import jinsist.proxy.Proxy;
 
 public class Mock<MockType> {
-
-    private Class<MockType> mockClass;
-
-    public MockType getInstance() {
-        return instance;
-    }
-
-    private MockType instance;
+    private MockInstance<MockType> mockInstance;
     private Expectations expectations;
 
     public Mock(Class<MockType> mockClass, Expectations expectations) {
         MockType instance = new Proxy<>(mockClass).instance(new MockExecutor<>(expectations, mockClass));
-        this.mockClass = mockClass;
-        this.instance = instance;
+        this.mockInstance = new MockInstance<MockType>(mockClass, instance);
         this.expectations = expectations;
     }
 
@@ -33,9 +25,18 @@ public class Mock<MockType> {
     }
 
     <ReturnType> MockType setupInstanceWithResult(ReturnType result, SetupResult setupResult) {
-        Delegator<MockType> recorder = new SetupRecorder<>(expectations, mockClass, instance, result, setupResult);
+        Delegator<MockType> recorder = new SetupRecorder<>(expectations, getMockClass(), getInstance(), result,
+                setupResult);
 
-        return new Proxy<>(mockClass).instance(recorder);
+        return new Proxy<>(getMockClass()).instance(recorder);
+    }
+
+    private Class<MockType> getMockClass() {
+        return mockInstance.getMockClass();
+    }
+
+    public MockType getInstance() {
+        return mockInstance.getInstance();
     }
 
     MockType setupInstance(SetupResult setupResult) {
