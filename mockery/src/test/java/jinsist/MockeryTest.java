@@ -14,7 +14,7 @@ public class MockeryTest {
         mockery.expect(notMock);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void expectTakesOnlyMocksCreatedInThisMockery() {
         Collaborator mock = mockery.mock(Collaborator.class);
         Collaborator notMock = clone(mock);
