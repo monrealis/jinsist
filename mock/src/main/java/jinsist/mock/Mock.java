@@ -1,6 +1,7 @@
 package jinsist.mock;
 
 import jinsist.expectations.Expectations;
+import jinsist.expectations.MockInstance;
 import jinsist.mock.delegators.MockExecutor;
 import jinsist.mock.delegators.SetupRecorder;
 import jinsist.proxy.Delegator;
