@@ -34,8 +34,8 @@ public class ReportExpectationsTest {
     public void delegateToUnderlyingImplementation() {
         ReportExpectations expectations = new ReportExpectations(orderedExpectations);
 
-        expectations.recordStub(mockClass, instance, method1, noArgumentsMatchers, null);
-        expectations.recordStub(mockClass, instance, method2, noArgumentsMatchers, null);
+        expectations.recordStub(new MockInstance<>(mockClass, instance), method1, noArgumentsMatchers, null);
+        expectations.recordStub(new MockInstance<>(mockClass, instance), method2, noArgumentsMatchers, null);
 
         expectations.execute(mockClass, instance, method1, noArguments);
 
@@ -58,7 +58,7 @@ public class ReportExpectationsTest {
     public void reportUnexpectedInvocation() {
         ReportExpectations expectations = new ReportExpectations(orderedExpectations);
 
-        expectations.recordStub(mockClass, instance, method1, noArgumentsMatchers, null);
+        expectations.recordStub(new MockInstance<>(mockClass, instance), method1, noArgumentsMatchers, null);
 
         String expectedReport = "" +
                 "Expected: TestCollaborator.firstMethod()\n" +
