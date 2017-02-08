@@ -1,6 +1,7 @@
 package jinsist.mock.testtypes;
 
 import jinsist.expectations.Expectations;
+import jinsist.expectations.MockInstance;
 import jinsist.matchers.Arguments;
 import jinsist.matchers.EqualsMatcher;
 
@@ -46,9 +47,9 @@ public class TestFactories {
 
         @Override
         public <ReturnType, MockType> void recordStub(
-                Class<MockType> classToMock, MockType instance, Method method, Arguments arguments, ReturnType result
+                MockInstance<MockType> mockInstance, Method method, Arguments arguments, ReturnType result
         ) {
-            registry.add(new Stub<>(classToMock, method, arguments, result));
+            registry.add(new Stub<>(mockInstance.getMockClass(), method, arguments, result));
         }
 
         @Override
