@@ -14,7 +14,6 @@ public interface Expectations {
 
     <MockType> Object execute(
             MockInstance<MockType> mockInstance,
-            MockType instance,
             Method method,
             Object[] arguments
     );

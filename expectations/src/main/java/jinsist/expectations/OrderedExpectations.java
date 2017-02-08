@@ -24,11 +24,10 @@ public class OrderedExpectations implements Expectations {
     @Override
     public <MockType> Object execute(
             MockInstance<MockType> mockInstance,
-            MockType instance,
             Method method,
             Object[] arguments
     ) {
-        Invocation<MockType> invocation = new Invocation<>(mockInstance.getMockClass(), instance, method, arguments);
+        Invocation<MockType> invocation = new Invocation<>(mockInstance.getMockClass(), mockInstance.getInstance(), method, arguments);
         if (expectations.isEmpty()) {
             throw new UnexpectedInvocation(invocation);
         }

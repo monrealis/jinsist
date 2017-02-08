@@ -30,12 +30,12 @@ public class ReportExpectations implements Expectations {
 
     @Override
     public <MockType> Object execute(
-            MockInstance<MockType> mockInstance, MockType instance, Method method, Object[] arguments
+            MockInstance<MockType> mockInstance, Method method, Object[] arguments
     ) {
 
         ExecuteEvent<MockType> executeEvent = new ExecuteEvent<>(mockInstance.getMockClass(), method, arguments);
         try {
-            Object result = expectations.execute(mockInstance, instance, method, arguments);
+            Object result = expectations.execute(mockInstance, method, arguments);
             updateLog(executeEvent);
             return result;
         } catch (UnexpectedInvocation e) {

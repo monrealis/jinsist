@@ -54,7 +54,7 @@ public class TestFactories {
 
         @Override
         public <MockType> Object execute(
-                MockInstance<MockType> mockInstance, MockType instance, Method method, Object[] arguments
+                MockInstance<MockType> mockInstance, Method method, Object[] arguments
         ) {
             return null;
         }
