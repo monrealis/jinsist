@@ -37,7 +37,7 @@ public class ReportExpectationsTest {
         expectations.recordStub(new MockInstance<>(mockClass, instance), method1, noArgumentsMatchers, null);
         expectations.recordStub(new MockInstance<>(mockClass, instance), method2, noArgumentsMatchers, null);
 
-        expectations.execute(new MockInstance<>(mockClass, instance), instance, method1, noArguments);
+        expectations.execute(new MockInstance<>(mockClass, instance), method1, noArguments);
 
         String expectedReport = "" +
                 "Expected: TestCollaborator.secondMethod()\n" +
@@ -50,7 +50,7 @@ public class ReportExpectationsTest {
         verifyException(expectations, UnmetExpectations.class).verify();
         assertEquals(expectedReport, caughtException().getMessage());
 
-        expectations.execute(new MockInstance<>(mockClass, instance), instance, method2, noArguments);
+        expectations.execute(new MockInstance<>(mockClass, instance), method2, noArguments);
         expectations.verify();
     }
 
@@ -68,7 +68,7 @@ public class ReportExpectationsTest {
                 "Unmet Expectations:\n" +
                 "  TestCollaborator.firstMethod()\n";
 
-        verifyException(expectations, UnexpectedInvocation.class).execute(new MockInstance<>(mockClass, instance), instance, method2, noArguments);
+        verifyException(expectations, UnexpectedInvocation.class).execute(new MockInstance<>(mockClass, instance), method2, noArguments);
         assertEquals(expectedReport, caughtException().getMessage());
 
         verifyException(expectations, UnmetExpectations.class).verify();
@@ -87,7 +87,7 @@ public class ReportExpectationsTest {
                 "Unmet Expectations:\n" +
                 "  Nothing!\n";
 
-        verifyException(expectations, UnexpectedInvocation.class).execute(new MockInstance<>(mockClass, instance), instance, method1, noArguments);
+        verifyException(expectations, UnexpectedInvocation.class).execute(new MockInstance<>(mockClass, instance), method1, noArguments);
         assertEquals(expectedReport, caughtException().getMessage());
     }
 }

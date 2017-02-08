@@ -17,6 +17,6 @@ public class MockExecutor<MockType> implements Delegator<MockType> {
 
     @Override
     public Object handle(MockType instance, Method method, Object[] arguments) {
-        return expectations.execute(new MockInstance<>(mockType, instance), instance, method, arguments);
+        return expectations.execute(new MockInstance<>(mockType, instance), method, arguments);
     }
 }
