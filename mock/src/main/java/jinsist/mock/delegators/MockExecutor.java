@@ -1,6 +1,7 @@
 package jinsist.mock.delegators;
 
 import jinsist.expectations.Expectations;
+import jinsist.expectations.MockInstance;
 import jinsist.proxy.Delegator;
 
 import java.lang.reflect.Method;
@@ -16,6 +17,6 @@ public class MockExecutor<MockType> implements Delegator<MockType> {
 
     @Override
     public Object handle(MockType instance, Method method, Object[] arguments) {
-        return expectations.execute(mockType, instance, method, arguments);
+        return expectations.execute(new MockInstance<>(mockType, instance), instance, method, arguments);
     }
 }
