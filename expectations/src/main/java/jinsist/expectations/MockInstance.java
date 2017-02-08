@@ -1,6 +1,6 @@
-package jinsist.mock;
+package jinsist.expectations;
 
-class MockInstance<T> {
+public class MockInstance<T> {
     private final Class<T> mockClass;
     private final T instance;
 
