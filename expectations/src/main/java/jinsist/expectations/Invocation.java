@@ -44,8 +44,8 @@ public class Invocation<MockType> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        return equal(this, o, () -> toList().equals(((Invocation<?>) o).toList()));
+    public boolean equals(Object obj) {
+        return equal(this, obj, o -> toList().equals(o.toList()));
     }
 
     @Override
