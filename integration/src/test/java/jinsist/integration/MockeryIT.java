@@ -9,22 +9,20 @@ import org.junit.Test;
 
 public class MockeryIT {
     private Mockery mockery = new Mockery();
-    
+    private Collaborator collaborator = mockery.mock(Collaborator.class);
+
     @Test
     public void verifiesEmptyMockery() {
-        mockery.verify();
+        new Mockery().verify();
     }
 
     @Test
     public void verifiesMockeryWithoutExpectations() {
-        mockery.mock(Collaborator.class);
-
         mockery.verify();
     }
 
     @Test(expected = UnmetExpectations.class)
     public void failsVerificationOnUnmetExpectations() {
-        Collaborator collaborator = mockery.mock(Collaborator.class);
         mockery.expect(collaborator).query(mock -> mock.firstMethod("some input")).returns("some output");
 
         mockery.verify();
@@ -32,31 +30,29 @@ public class MockeryIT {
 
     @Test
     public void passesVerificationIfExpectationsAreMet() {
-        Collaborator collaborator = mockery.mock(Collaborator.class);
-
         mockery.expect(collaborator).query(mock -> mock.firstMethod("some input")).returns("some output");
 
         collaborator.firstMethod("some input");
 
         mockery.verify();
     }
-    
+
     @Ignore("Not implemented")
     @Test(expected = RuntimeException.class)
     public void failsVerificationWithUnfinishedExpectations() {
-        Collaborator collaborator = mockery.mock(Collaborator.class);
-
-        mockery.expect(collaborator).query(mock -> mock.firstMethod("some input"));
+        expectUnfinishedQuery();
 
         mockery.verify();
     }
-    
+
     @Ignore("Not implemented")
     @Test(expected = RuntimeException.class)
     public void failsQueryWithUnfinishedPreviousQuery() {
-        Collaborator collaborator = mockery.mock(Collaborator.class);
+        expectUnfinishedQuery();
+        expectUnfinishedQuery();
+    }
 
-        mockery.expect(collaborator).query(mock -> mock.firstMethod("some input"));
+    private void expectUnfinishedQuery() {
         mockery.expect(collaborator).query(mock -> mock.firstMethod("some input"));
     }
 }
