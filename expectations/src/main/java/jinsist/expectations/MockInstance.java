@@ -24,7 +24,7 @@ public class MockInstance<T> {
 
     @Override
     public boolean equals(Object obj) {
-        return equal(this, obj, () -> toList().equals(((MockInstance<?>) obj).toList()));
+        return equal(this, obj, o -> toList().equals(o.toList()));
     }
 
     @Override

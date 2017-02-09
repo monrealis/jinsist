@@ -29,8 +29,8 @@ public class Expectation<MockType, ReturnType> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        return equal(this, o, () -> toList().equals(((Expectation<?, ?>) o).toList()));
+    public boolean equals(Object obj) {
+        return equal(this, obj, o -> toList().equals(o.toList()));
     }
 
     @Override
