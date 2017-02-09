@@ -1,7 +1,12 @@
 package jinsist.expectations;
 
+import static java.util.Arrays.asList;
+import static jinsist.expectations.ValueObjects.equal;
+
+import java.util.List;
+
 public class Expectation<MockType, ReturnType> {
-    private ExpectedInvocation<MockType> expectedInvocation;
+    private final ExpectedInvocation<MockType> expectedInvocation;
     private final ReturnType result;
 
     Expectation(ExpectedInvocation<MockType> expectedInvocation, ReturnType result) {
@@ -25,19 +30,15 @@ public class Expectation<MockType, ReturnType> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Expectation<?, ?> that = (Expectation<?, ?>) o;
-
-        return expectedInvocation.equals(that.expectedInvocation)
-                && (result != null ? result.equals(that.result) : that.result == null);
+        return equal(this, o, () -> toList().equals(((Expectation<?, ?>) o).toList()));
     }
 
     @Override
     public int hashCode() {
-        int result1 = expectedInvocation.hashCode();
-        result1 = 31 * result1 + (result != null ? result.hashCode() : 0);
-        return result1;
+        return toList().hashCode();
+    }
+    
+    private List<?> toList() {
+        return asList(expectedInvocation, result);
     }
 }
