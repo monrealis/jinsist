@@ -9,6 +9,11 @@ public class MockInstanceTest {
     private MockInstance<String> instance = new MockInstance<String>(String.class, "First");
 
     @Test
+    public void instanceEqualsItself() {
+        assertEquals(instance, instance);
+    }
+
+    @Test
     public void equalInstancesAreEqual() {
         MockInstance<String> otherEqual = new MockInstance<>(instance.getMockClass(), instance.getInstance());
         assertEquals(instance, otherEqual);
@@ -26,7 +31,7 @@ public class MockInstanceTest {
         MockInstance<String> typeDiffers = new MockInstance<>(instance.getMockClass(), "Other");
         assertNotEquals(instance, typeDiffers);
     }
-    
+
     @Test
     public void ifTypesDifferThenNotEqual() {
         assertNotEquals(instance, null);
