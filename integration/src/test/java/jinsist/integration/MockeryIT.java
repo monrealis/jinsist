@@ -3,6 +3,8 @@ package jinsist.integration;
 import jinsist.Mockery;
 import jinsist.expectations.UnmetExpectations;
 import jinsist.integration.testtypes.Collaborator;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class MockeryIT {
@@ -37,5 +39,24 @@ public class MockeryIT {
         collaborator.firstMethod("some input");
 
         mockery.verify();
+    }
+    
+    @Ignore("Not implemented")
+    @Test(expected = RuntimeException.class)
+    public void failsVerificationWithUnfinishedExpectations() {
+        Collaborator collaborator = mockery.mock(Collaborator.class);
+
+        mockery.expect(collaborator).query(mock -> mock.firstMethod("some input"));
+
+        mockery.verify();
+    }
+    
+    @Ignore("Not implemented")
+    @Test(expected = RuntimeException.class)
+    public void failsQueryWithUnfinishedPreviousQuery() {
+        Collaborator collaborator = mockery.mock(Collaborator.class);
+
+        mockery.expect(collaborator).query(mock -> mock.firstMethod("some input"));
+        mockery.expect(collaborator).query(mock -> mock.firstMethod("some input"));
     }
 }
