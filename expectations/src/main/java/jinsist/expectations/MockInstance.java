@@ -1,6 +1,7 @@
 package jinsist.expectations;
 
 import static java.util.Arrays.asList;
+import static jinsist.expectations.ValueObjects.equal;
 
 import java.util.List;
 
@@ -23,13 +24,7 @@ public class MockInstance<T> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        return toList().equals(((MockInstance<?>) obj).toList());
+        return equal(this, obj, () -> toList().equals(((MockInstance<?>) obj).toList()));
     }
 
     @Override
