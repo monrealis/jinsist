@@ -22,20 +22,20 @@ public class ReportExpectations implements Expectations {
 
     @Override
     public <ReturnType, MockType> void recordStub(
-            Class<MockType> classToMock, MockType instance, Method method, Arguments arguments, ReturnType result
+            MockInstance<MockType> mockInstance, Method method, Arguments arguments, ReturnType result
     ) {
-        expected.add(new ExpectationEvent<>(classToMock, method, arguments));
-        expectations.recordStub(classToMock, instance, method, arguments, result);
+        expected.add(new ExpectationEvent<>(mockInstance.getMockClass(), method, arguments));
+        expectations.recordStub(mockInstance, method, arguments, result);
     }
 
     @Override
     public <MockType> Object execute(
-            Class<MockType> classToMock, MockType instance, Method method, Object[] arguments
+            MockInstance<MockType> mockInstance, Method method, Object[] arguments
     ) {
 
-        ExecuteEvent<MockType> executeEvent = new ExecuteEvent<>(classToMock, method, arguments);
+        ExecuteEvent<MockType> executeEvent = new ExecuteEvent<>(mockInstance.getMockClass(), method, arguments);
         try {
-            Object result = expectations.execute(classToMock, instance, method, arguments);
+            Object result = expectations.execute(mockInstance, method, arguments);
             updateLog(executeEvent);
             return result;
         } catch (UnexpectedInvocation e) {

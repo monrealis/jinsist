@@ -1,6 +1,7 @@
 package jinsist.mock.delegators;
 
 import jinsist.expectations.Expectations;
+import jinsist.expectations.MockInstance;
 import jinsist.matchers.Arguments;
 import jinsist.matchers.EqualsMatcher;
 import jinsist.mock.SetupResult;
@@ -39,7 +40,7 @@ public class SetupRecorder<ReturnType, MockType> implements Delegator<MockType> 
 
         Arguments arguments = makeArguments(args);
 
-        expectations.recordStub(mockType, instance, method, arguments, result);
+        expectations.recordStub(new MockInstance<>(mockType, instance), method, arguments, result);
         setupResult.setSuccess();
         return result;
     }

@@ -3,30 +3,26 @@ package jinsist.integration;
 import jinsist.Mockery;
 import jinsist.expectations.UnmetExpectations;
 import jinsist.integration.testtypes.Collaborator;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class MockeryIT {
+    private Mockery mockery = new Mockery();
+    private Collaborator collaborator = mockery.mock(Collaborator.class);
+
     @Test
     public void verifiesEmptyMockery() {
-        Mockery mockery = new Mockery();
-
-        mockery.verify();
+        new Mockery().verify();
     }
 
     @Test
     public void verifiesMockeryWithoutExpectations() {
-        Mockery mockery = new Mockery();
-
-        mockery.mock(Collaborator.class);
-
         mockery.verify();
     }
 
     @Test(expected = UnmetExpectations.class)
     public void failsVerificationOnUnmetExpectations() {
-        Mockery mockery = new Mockery();
-
-        Collaborator collaborator = mockery.mock(Collaborator.class);
         mockery.expect(collaborator).query(mock -> mock.firstMethod("some input")).returns("some output");
 
         mockery.verify();
@@ -34,14 +30,29 @@ public class MockeryIT {
 
     @Test
     public void passesVerificationIfExpectationsAreMet() {
-        Mockery mockery = new Mockery();
-
-        Collaborator collaborator = mockery.mock(Collaborator.class);
-
         mockery.expect(collaborator).query(mock -> mock.firstMethod("some input")).returns("some output");
 
         collaborator.firstMethod("some input");
 
         mockery.verify();
+    }
+
+    @Ignore("Not implemented")
+    @Test(expected = RuntimeException.class)
+    public void failsVerificationWithUnfinishedExpectations() {
+        expectUnfinishedQuery();
+
+        mockery.verify();
+    }
+
+    @Ignore("Not implemented")
+    @Test(expected = RuntimeException.class)
+    public void failsQueryWithUnfinishedPreviousQuery() {
+        expectUnfinishedQuery();
+        expectUnfinishedQuery();
+    }
+
+    private void expectUnfinishedQuery() {
+        mockery.expect(collaborator).query(mock -> mock.firstMethod("some input"));
     }
 }

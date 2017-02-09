@@ -12,24 +12,22 @@ public class OrderedExpectations implements Expectations {
 
     @Override
     public <ReturnType, MockType> void recordStub(
-            Class<MockType> classToMock,
-            MockType instance,
+            MockInstance<MockType> mockInstance,
             Method method,
             Arguments arguments,
             ReturnType result
     ) {
-        ExpectedInvocation<MockType> invocation = new ExpectedInvocation<>(classToMock, instance, method, arguments);
+        ExpectedInvocation<MockType> invocation = new ExpectedInvocation<>(mockInstance.getMockClass(), mockInstance.getInstance(), method, arguments);
         expectations.add(new Expectation<>(invocation, result));
     }
 
     @Override
     public <MockType> Object execute(
-            Class<MockType> classToMock,
-            MockType instance,
+            MockInstance<MockType> mockInstance,
             Method method,
             Object[] arguments
     ) {
-        Invocation<MockType> invocation = new Invocation<>(classToMock, instance, method, arguments);
+        Invocation<MockType> invocation = new Invocation<>(mockInstance.getMockClass(), mockInstance.getInstance(), method, arguments);
         if (expectations.isEmpty()) {
             throw new UnexpectedInvocation(invocation);
         }

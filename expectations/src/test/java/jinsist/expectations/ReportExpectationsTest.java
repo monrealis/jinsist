@@ -13,12 +13,12 @@ import static org.junit.Assert.assertEquals;
 
 public class ReportExpectationsTest {
     private Expectations orderedExpectations = new OrderedExpectations();
-    private TestCollaborator instance = new TestCollaborator();
     private Class<TestCollaborator> mockClass = TestCollaborator.class;
+    private MockInstance<TestCollaborator> mockInstance = new MockInstance<>(mockClass, new TestCollaborator());
     private Method method1 = mockClass.getMethod("firstMethod");
     private Method method2 = mockClass.getMethod("secondMethod");
     private Arguments noArgumentsMatchers = new Arguments(emptyList());
-    private Object[] noArguments = new Object[]{};
+    private Object[] noArguments = {};
 
     public ReportExpectationsTest() throws NoSuchMethodException {
     }
@@ -34,10 +34,11 @@ public class ReportExpectationsTest {
     public void delegateToUnderlyingImplementation() {
         ReportExpectations expectations = new ReportExpectations(orderedExpectations);
 
-        expectations.recordStub(mockClass, instance, method1, noArgumentsMatchers, null);
-        expectations.recordStub(mockClass, instance, method2, noArgumentsMatchers, null);
 
-        expectations.execute(mockClass, instance, method1, noArguments);
+        expectations.recordStub(mockInstance, method1, noArgumentsMatchers, null);
+        expectations.recordStub(mockInstance, method2, noArgumentsMatchers, null);
+
+        expectations.execute(mockInstance, method1, noArguments);
 
         String expectedReport = "" +
                 "Expected: TestCollaborator.secondMethod()\n" +
@@ -50,7 +51,7 @@ public class ReportExpectationsTest {
         verifyException(expectations, UnmetExpectations.class).verify();
         assertEquals(expectedReport, caughtException().getMessage());
 
-        expectations.execute(mockClass, instance, method2, noArguments);
+        expectations.execute(mockInstance, method2, noArguments);
         expectations.verify();
     }
 
@@ -58,7 +59,7 @@ public class ReportExpectationsTest {
     public void reportUnexpectedInvocation() {
         ReportExpectations expectations = new ReportExpectations(orderedExpectations);
 
-        expectations.recordStub(mockClass, instance, method1, noArgumentsMatchers, null);
+        expectations.recordStub(mockInstance, method1, noArgumentsMatchers, null);
 
         String expectedReport = "" +
                 "Expected: TestCollaborator.firstMethod()\n" +
@@ -68,7 +69,7 @@ public class ReportExpectationsTest {
                 "Unmet Expectations:\n" +
                 "  TestCollaborator.firstMethod()\n";
 
-        verifyException(expectations, UnexpectedInvocation.class).execute(mockClass, instance, method2, noArguments);
+        verifyException(expectations, UnexpectedInvocation.class).execute(mockInstance, method2, noArguments);
         assertEquals(expectedReport, caughtException().getMessage());
 
         verifyException(expectations, UnmetExpectations.class).verify();
@@ -87,7 +88,7 @@ public class ReportExpectationsTest {
                 "Unmet Expectations:\n" +
                 "  Nothing!\n";
 
-        verifyException(expectations, UnexpectedInvocation.class).execute(mockClass, instance, method1, noArguments);
+        verifyException(expectations, UnexpectedInvocation.class).execute(mockInstance, method1, noArguments);
         assertEquals(expectedReport, caughtException().getMessage());
     }
 }

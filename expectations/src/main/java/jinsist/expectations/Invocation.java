@@ -1,9 +1,13 @@
 package jinsist.expectations;
 
+import static java.util.Arrays.asList;
+import static jinsist.expectations.ValueObjects.equal;
+
 import jinsist.report.FormattedMethod;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.List;
 
 public class Invocation<MockType> {
     private final Class<MockType> mockClass;
@@ -40,21 +44,17 @@ public class Invocation<MockType> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Invocation<?> that = (Invocation<?>) o;
-
-        return instance.equals(that.instance) && method.equals(that.method) && Arrays.equals(arguments, that.arguments);
+    public boolean equals(Object obj) {
+        return equal(this, obj, o -> toList().equals(o.toList()));
     }
 
     @Override
     public int hashCode() {
-        int result = instance.hashCode();
-        result = 31 * result + method.hashCode();
-        result = 31 * result + Arrays.hashCode(arguments);
-        return result;
+        return toList().hashCode();
     }
 
+    private List<?> toList() {
+        // TODO monrealis 2017-02-09 why not all?
+        return asList(instance, method, asList(arguments));
+    }
 }

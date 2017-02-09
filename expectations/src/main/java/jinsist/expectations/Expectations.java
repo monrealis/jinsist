@@ -6,16 +6,14 @@ import java.lang.reflect.Method;
 
 public interface Expectations {
     <ReturnType, MockType> void recordStub(
-            Class<MockType> classToMock,
-            MockType instance,
+            MockInstance<MockType> mockInstance,
             Method method,
             Arguments arguments,
             ReturnType result
     );
 
     <MockType> Object execute(
-            Class<MockType> classToMock,
-            MockType instance,
+            MockInstance<MockType> mockInstance,
             Method method,
             Object[] arguments
     );
