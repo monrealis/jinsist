@@ -13,23 +13,19 @@ import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 
 public class SetupRecorder<ReturnType, MockType> implements Delegator<MockType> {
-
-    private MockType instance;
-    private ReturnType result;
-    private SetupResult setupResult;
-    private Expectations expectations;
-    private Class<MockType> mockType;
+    private final MockInstance<MockType> mockInstance;
+    private final ReturnType result;
+    private final SetupResult setupResult;
+    private final Expectations expectations;
 
     public SetupRecorder(
             Expectations expectations,
-            Class<MockType> mockType,
-            MockType instance,
+            MockInstance<MockType> mockInstance,
             ReturnType result,
             SetupResult setupResult
     ) {
         this.expectations = expectations;
-        this.mockType = mockType;
-        this.instance = instance;
+        this.mockInstance = mockInstance;
         this.result = result;
         this.setupResult = setupResult;
     }
@@ -40,7 +36,7 @@ public class SetupRecorder<ReturnType, MockType> implements Delegator<MockType> 
 
         Arguments arguments = makeArguments(args);
 
-        expectations.recordStub(new MockInstance<>(mockType, instance), method, arguments, result);
+        expectations.recordStub(mockInstance, method, arguments, result);
         setupResult.setSuccess();
         return result;
     }
