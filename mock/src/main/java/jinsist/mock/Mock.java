@@ -26,8 +26,7 @@ public class Mock<MockType> {
     }
 
     <ReturnType> MockType setupInstanceWithResult(ReturnType result, SetupResult setupResult) {
-        Delegator<MockType> recorder = new SetupRecorder<>(expectations, getMockClass(), getInstance(), result,
-                setupResult);
+        Delegator<MockType> recorder = new SetupRecorder<>(expectations, mockInstance, result, setupResult);
 
         return new Proxy<>(getMockClass()).instance(recorder);
     }
