@@ -27,7 +27,7 @@ public class OrderedExpectations implements Expectations {
             Method method,
             Object[] arguments
     ) {
-        Invocation<MockType> invocation = new Invocation<>(mockInstance.getMockClass(), mockInstance.getInstance(), method, arguments);
+        Invocation<MockType> invocation = new Invocation<>(mockInstance, method, arguments);
         if (expectations.isEmpty()) {
             throw new UnexpectedInvocation(invocation);
         }
