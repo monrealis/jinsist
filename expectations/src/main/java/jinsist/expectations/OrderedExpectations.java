@@ -17,7 +17,7 @@ public class OrderedExpectations implements Expectations {
             Arguments arguments,
             ReturnType result
     ) {
-        ExpectedInvocation<MockType> invocation = new ExpectedInvocation<>(mockInstance.getMockClass(), mockInstance.getInstance(), method, arguments);
+        ExpectedInvocation<MockType> invocation = new ExpectedInvocation<>(mockInstance, method, arguments);
         expectations.add(new Expectation<>(invocation, result));
     }
 

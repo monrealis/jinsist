@@ -11,9 +11,9 @@ public class ExpectedInvocation<MockType> {
     private final Method method;
     private final Arguments arguments;
 
-    ExpectedInvocation(Class<MockType> mockClass, MockType instance, Method method, Arguments arguments) {
-        this.mockClass = mockClass;
-        this.instance = instance.getClass();
+    ExpectedInvocation(MockInstance<MockType> mockInstance, Method method, Arguments arguments) {
+        this.mockClass = mockInstance.getMockClass();
+        this.instance = mockInstance.getInstance().getClass();
         this.method = method;
         this.arguments = arguments;
     }
