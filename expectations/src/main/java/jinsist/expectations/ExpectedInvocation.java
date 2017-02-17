@@ -13,7 +13,7 @@ public class ExpectedInvocation<MockType> {
 
     ExpectedInvocation(MockInstance<MockType> mockInstance, Method method, Arguments arguments) {
         this.mockClass = mockInstance.getMockClass();
-        this.instance = mockInstance.getInstance().getClass();
+        this.instance = mockInstance.getInstanceClass();
         this.method = method;
         this.arguments = arguments;
     }
