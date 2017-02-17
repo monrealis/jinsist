@@ -17,7 +17,7 @@ public class Invocation<MockType> {
 
     Invocation(MockInstance<MockType> mockInstance, Method method, Object[] arguments) {
         this.mockClass = mockInstance.getMockClass();
-        this.instance = mockInstance.getInstance().getClass();
+        this.instance = mockInstance.getInstanceClass();
         this.method = method;
         this.arguments = arguments;
     }

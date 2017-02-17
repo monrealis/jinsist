@@ -18,6 +18,10 @@ public class MockInstance<T> {
         return mockClass;
     }
 
+    public Class<?> getInstanceClass() {
+        return instance.getClass();
+    }
+
     public T getInstance() {
         return instance;
     }
