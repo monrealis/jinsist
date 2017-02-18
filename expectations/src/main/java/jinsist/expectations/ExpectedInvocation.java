@@ -11,13 +11,13 @@ import java.util.List;
 
 public class ExpectedInvocation<MockType> {
     private final Class<MockType> mockClass;
-    private final Class<?> instance;
+    private final Class<?> instanceClass;
     private final Method method;
     private final Arguments arguments;
 
     ExpectedInvocation(MockInstance<MockType> mockInstance, Method method, Arguments arguments) {
         this.mockClass = mockInstance.getMockClass();
-        this.instance = mockInstance.getInstanceClass();
+        this.instanceClass = mockInstance.getInstanceClass();
         this.method = method;
         this.arguments = arguments;
     }
@@ -32,7 +32,7 @@ public class ExpectedInvocation<MockType> {
     }
 
     Class<?> getInstance() {
-        return instance;
+        return instanceClass;
     }
 
     Method getMethod() {
@@ -54,6 +54,6 @@ public class ExpectedInvocation<MockType> {
     }
 
     private List<?> toList() {
-        return asList(mockClass, instance, method, arguments);
+        return asList(mockClass, instanceClass, method, arguments);
     }
 }
