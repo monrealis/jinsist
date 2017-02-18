@@ -1,7 +1,7 @@
 package jinsist.expectations;
 
 import static java.util.Arrays.asList;
-import static jinsist.expectations.ValueObjects.equal;
+import static jinsist.matchers.ValueObjects.equal;
 
 import jinsist.matchers.Arguments;
 import jinsist.report.FormattedMethod;

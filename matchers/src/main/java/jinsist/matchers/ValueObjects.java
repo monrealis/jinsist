@@ -1,4 +1,4 @@
-package jinsist.expectations;
+package jinsist.matchers;
 
 public class ValueObjects {
     public static <T> boolean equal(T thisObject, Object other, EqualityTester<T> equalityTesterOfThis) {
