@@ -12,34 +12,34 @@ import org.junit.Test;
 import java.util.List;
 
 public class ValueObjectsTest {
-    private Pair instance = new Pair(1, "First");
-    private EqualityTester<Pair> tester = o -> instance.toList().equals(o.toList());
+    private Pair pair = new Pair(1, "First");
+    private EqualityTester<Pair> tester = o -> pair.toList().equals(o.toList());
 
     @Test
     public void instanceEqualsItself() {
-        assertTrue(expectEqual(instance));
+        assertTrue(isPairEqualsAnother(pair));
     }
 
     @Test
     public void equalInstancesAreEqual() {
-        Pair otherEqual = new Pair(instance.getFirst(), instance.getSecond());
-        assertTrue(expectEqual(otherEqual));
+        Pair otherEqual = new Pair(pair.getFirst(), pair.getSecond());
+        assertTrue(isPairEqualsAnother(otherEqual));
     }
 
     @Test
     public void ifAnyComponentDiffersThenNotEqual() {
-        Pair typeDiffers = new Pair(instance.getFirst() + 1, instance.getSecond());
-        assertFalse(expectEqual(typeDiffers));
+        Pair typeDiffers = new Pair(pair.getFirst() + 1, pair.getSecond());
+        assertFalse(isPairEqualsAnother(typeDiffers));
     }
 
     @Test
     public void ifTypesDifferThenNotEqual() {
-        assertFalse(expectEqual(null));
-        assertFalse(expectEqual(new Object()));
+        assertFalse(isPairEqualsAnother(null));
+        assertFalse(isPairEqualsAnother(new Object()));
     }
 
-    private boolean expectEqual(Object other) {
-        return ValueObjects.equal(instance, other, tester);
+    private boolean isPairEqualsAnother(Object other) {
+        return ValueObjects.equal(pair, other, tester);
     }
 
     private static class Pair {
