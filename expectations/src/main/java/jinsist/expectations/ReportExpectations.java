@@ -39,7 +39,7 @@ public class ReportExpectations implements Expectations {
             updateLog(executeEvent);
             return result;
         } catch (UnexpectedInvocation e) {
-            return throwUnexpectedInvocation(executeEvent, e);
+            throw createUnexpectedInvocation(executeEvent, e);
         }
     }
 
@@ -48,10 +48,12 @@ public class ReportExpectations implements Expectations {
         log.add(executeEvent);
     }
 
-    private <MockType> Object throwUnexpectedInvocation(ExecuteEvent<MockType> executeEvent, UnexpectedInvocation e) {
+    private <MockType> UnexpectedInvocation createUnexpectedInvocation(
+            ExecuteEvent<MockType> executeEvent, UnexpectedInvocation e
+    ) {
         unexpectedEvent = executeEvent;
         FormattedReport report = prepareReport();
-        throw new UnexpectedInvocation(report.format(), e);
+        return new UnexpectedInvocation(report.format(), e);
     }
 
     @Override
