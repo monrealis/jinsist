@@ -1,10 +1,11 @@
-package jinsist.expectations;
+package jinsist.matchers;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import jinsist.expectations.ValueObjects.EqualityTester;
+import jinsist.matchers.ValueObjects;
+import jinsist.matchers.ValueObjects.EqualityTester;
 
 import org.junit.Test;
 
